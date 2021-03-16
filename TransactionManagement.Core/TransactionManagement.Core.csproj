@@ -49,24 +49,38 @@
     <Compile Include="Entities\BankAggregate\Transaction.cs" />
     <Compile Include="Entities\BankAggregate\TransactionStatus.cs" />
     <Compile Include="Entities\BaseEntity.cs" />
-    <Compile Include="Entities\DocumentType.cs" />
+    <Compile Include="Entities\DocumentTypeEntity.cs" />
     <Compile Include="Entities\PersonAggregate\CreatePersonService.cs" />
-    <Compile Include="Entities\PersonAggregate\Incumbent.cs" />
-    <Compile Include="Entities\PersonAggregate\Payee.cs" />
-    <Compile Include="Entities\PersonAggregate\Person.cs" />
-    <Compile Include="Entities\PersonAggregate\User.cs" />
-    <Compile Include="Entities\PersonAggregate\TypeOfPayee.cs" />
+    <Compile Include="Entities\PersonAggregate\IncumbentEntity.cs" />
+    <Compile Include="Entities\PersonAggregate\PayeeEntity.cs" />
+    <Compile Include="Entities\PersonAggregate\PersonEntity.cs" />
+    <Compile Include="Entities\PersonAggregate\UserEntity.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
-    <Compile Include="Interfaces\IPersonRepositoy.cs" />
+    <Compile Include="Interfaces\IDocumentTypeRepository.cs" />
+    <Compile Include="Interfaces\IIncumbentRepository.cs" />
+    <Compile Include="Interfaces\IPersonRepository.cs" />
+    <Compile Include="Interfaces\IPersonService.cs" />
     <Compile Include="Interfaces\ITransferService.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\DocumentTypeQueries.cs" />
+    <Compile Include="Queries\IncumbentQueries.cs" />
+    <Compile Include="Queries\PersonQueries.cs" />
+    <Compile Include="Services\BankService.cs" />
+    <Compile Include="Services\PersonService.cs" />
     <Compile Include="Services\TransferService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />
-    <Folder Include="Queries\" />
+    <Folder Include="PersonModule\" />
     <Folder Include="ValueObjects\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TransactionManagement.Common\TransactionManagement.Common.csproj">
+      <Project>{1845e49d-644b-4763-9b53-2e1ead486115}</Project>
+      <Name>TransactionManagement.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

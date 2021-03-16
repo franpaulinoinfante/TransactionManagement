@@ -8,8 +8,6 @@ namespace TransactionManagement.Core.Entities.PersonAggregate
 {
     class CreatePersonService
     {
-        Person _person;
-
         public CreatePersonService()
         {
 
@@ -17,7 +15,7 @@ namespace TransactionManagement.Core.Entities.PersonAggregate
 
         public void CreateIncumbent(int id, string firstName, string lastName, char gender)
         {
-            _person = new Incumbent(id, firstName, lastName, gender);
+            //_person = new Incumbent(id, firstName, lastName, gender);
         }
 
         public void UpdateIncumbent(int id, string firstName, string lastName, char gender, string phone,

@@ -41,17 +41,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\EntityState.cs" />
+    <Compile Include="ManagementServices\Command\ICommand.cs" />
+    <Compile Include="ManagementServices\Command\Invoke.cs" />
+    <Compile Include="ManagementServices\DocumentTypeManagementService\CreateDocumentTypeCommand.cs" />
+    <Compile Include="ManagementServices\DocumentTypeManagementService\DocumentTypeDto.cs" />
+    <Compile Include="ManagementServices\DocumentTypeManagementService\DocumentTypeManagementService.cs" />
+    <Compile Include="ManagementServices\DocumentTypeManagementService\DocumentTypeMap.cs" />
+    <Compile Include="ManagementServices\DocumentTypeManagementService\IDocumentTypeManagementService.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\CreatePersonCommand.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\GetPeople.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\ICommand.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IIncumbentManagementService.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IncumbentDto.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IncumbentManagementService.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IncumbentMap.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\Invoke.cs" />
     <Compile Include="ManagementServices\PersonManagementService\IPersonManagementService.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\PersonDto.cs" />
     <Compile Include="ManagementServices\PersonManagementService\PersonManagementService.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\PersonMap.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\RemovePersonCommand.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\UpdatePersonCommand.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\User\IUserManagementService.cs" />
+    <Compile Include="ManagementServices\PersonManagementService\User\UserManagementService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Adapters\" />
+    <Folder Include="ManagementServices\BankServiceManagement\" />
+    <Folder Include="ManagementServices\PersonManagementService\Command\" />
+    <Folder Include="ManagementServices\PersonManagementService\FactoryMethod\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TransactionManagement.Common\TransactionManagement.Common.csproj">
+      <Project>{1845e49d-644b-4763-9b53-2e1ead486115}</Project>
+      <Name>TransactionManagement.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TransactionManagement.Core\TransactionManagement.Core.csproj">
       <Project>{036B85A5-EB13-4680-BCC9-2B8BA6BC3086}</Project>
       <Name>TransactionManagement.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TransactionManagement.Infrastructure\TransactionManagement.Infra.DataAccess.csproj">
+      <Project>{3030d34e-7a01-492d-8f38-0840c57c5bab}</Project>
+      <Name>TransactionManagement.Infra.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

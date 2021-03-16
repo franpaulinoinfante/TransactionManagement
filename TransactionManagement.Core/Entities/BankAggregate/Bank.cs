@@ -9,12 +9,18 @@ namespace TransactionManagement.Core.Entities.BankAggregate
     public class Bank : BaseEntity<int>
     {
         private readonly List<BankAccount> _bankAccounts = new List<BankAccount>();
-        public Bank(int id, string bankName, string phone, string city, string address) : base(id)
+
+        public Bank(int id, string bankName, string phone, string city, string address)
+            : base(id)
         {
-            BankName = bankName;
-            Phone = phone;
-            City = city;
-            Address = address;
+            BankName = !string.IsNullOrWhiteSpace(bankName) ? bankName :
+                throw new ArgumentException("Debe de indicar si es personal o de la empresa", nameof(bankName));
+            Phone = !string.IsNullOrWhiteSpace(phone) ? phone :
+                throw new ArgumentException("Debe de indicar si es personal o de la empresa", nameof(phone));
+            City = !string.IsNullOrWhiteSpace(city) ? city :
+                throw new ArgumentException("Debe de indicar si es personal o de la empresa", nameof(city));
+            Address = !string.IsNullOrWhiteSpace(address) ? address :
+                throw new ArgumentException("Debe de indicar si es personal o de la empresa", nameof(address));
         }
 
         public string BankName { get; private set; }
@@ -30,10 +36,14 @@ namespace TransactionManagement.Core.Entities.BankAggregate
         /// </summary>
         public IReadOnlyCollection<BankAccount> GetAccounts => _bankAccounts.AsReadOnly();
 
-        public void CreateAccount()
+        public void CreateAccount(BankAccount bankAccount)
         {
+            if (bankAccount == null)
+            {
+                throw new NullReferenceException(nameof(bankAccount));
+            }
 
-
+            _bankAccounts.Add(bankAccount);
         }
     }
 }

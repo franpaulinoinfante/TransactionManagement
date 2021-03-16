@@ -2,14 +2,16 @@
 
 namespace TransactionManagement.Core.Interfaces
 {
-    public interface IBaseRepository<Entity> where Entity : class
+    public interface IBaseRepository<TEntity> where TEntity : class
     {
-        void Create(Entity entity, string query);
+        int Create(TEntity entity, string query);
 
-        void Update(Entity entity, string query);
+        bool Remove(int id, string query);
 
-        void Delete(int id, string query);
+        bool Update(TEntity entity, string query);
 
-        IEnumerable<Entity> GetEntities(string query);
+        IEnumerable<TEntity> GetEntities(string query);
+
+        TEntity GetEntityById(int id, string query);
     }
 }

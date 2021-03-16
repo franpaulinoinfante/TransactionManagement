@@ -5,8 +5,7 @@ namespace TransactionManagement.Core.Entities.BankAggregate
 {
     public class Transaction : BaseEntity<int>
     {
-        public Transaction(int id, string referenceNumber, decimal amount, DateTime dateTransferStarted, DateTime? dateTransferEnd,
-            string description, int userId, int bankAccountId, int transactionStatusId, int payeeId) : base(id)
+        public Transaction(int id, string referenceNumber, decimal amount, DateTime dateTransferStarted, DateTime? dateTransferEnd, string description, int userId, int originalBankAccountId, int transactionStatusId, int? payeeId, int? finalBankAccountId) : base(id)
         {
             ReferenceNumber = referenceNumber;
             Amount = amount;
@@ -14,28 +13,35 @@ namespace TransactionManagement.Core.Entities.BankAggregate
             DateTransferEnd = dateTransferEnd;
             Description = description;
             UserId = userId;
-            BankAccountId = bankAccountId;
+            OriginalBankAccountId = originalBankAccountId;
             TransactionStatusId = transactionStatusId;
             PayeeId = payeeId;
+            FinalBankAccountId = finalBankAccountId;
         }
 
-        public string ReferenceNumber { get; set; }
+        public string ReferenceNumber { get; private set; }
 
-        public decimal Amount { get; set; }
+        public decimal Amount { get; private set; }
 
-        public DateTime DateTransferStarted { get; set; }
+        public DateTime DateTransferStarted { get; private set; }
 
-        public DateTime? DateTransferEnd { get; set; }
+        public DateTime? DateTransferEnd { get; private set; }
 
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
-        public int UserId { get; set; }
+        public int UserId { get; private set; }
+        public UserEntity User { get; private set; }
 
-        public int BankAccountId { get; set; }
+        public int OriginalBankAccountId { get; private set; }
+        public BankAccount OriginalBankAccount { get; private set; }
 
-        public int TransactionStatusId { get; set; }
+        public int? FinalBankAccountId { get; private set; }
+        public BankAccount FnalBankAccount { get; private set; }
 
-        public int PayeeId { get; set; }
+        public int TransactionStatusId { get; private set; }
+        public TransactionStatus TransactionStatus { get; private set; }
+
+        public int? PayeeId { get; private set; }
 
         public void UpdateTransferStatus(int transactionStatusId)
         {
@@ -46,6 +52,11 @@ namespace TransactionManagement.Core.Entities.BankAggregate
 
             TransactionStatusId = transactionStatusId;
             DateTransferEnd = DateTime.Now;
+        }
+
+        public void ChangeTransactionStatus(TransactionStatus transactionStatus)
+        {
+            TransactionStatus = transactionStatus ?? throw new NullReferenceException();
         }
     }
 }
