@@ -14,7 +14,7 @@ namespace TransactionManagement.ApplicationService.ManagementServices.DocumentTy
 
         bool UpdateDocumentType(DocumentTypeDto documentTypeDto);
 
-        DocumentTypeDto GetDocumentTypeById(DocumentTypeDto documentTypeDto);
+        DocumentTypeDto GetDocumentTypeById(int id);
 
         IEnumerable<DocumentTypeDto> GetDocumentTypeDtos();
     }

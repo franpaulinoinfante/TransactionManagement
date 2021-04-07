@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TransactionManagement.Core.Interfaces;
 
 namespace TransactionManagement.ApplicationService.ManagementServices.PersonManagementService
 {
     public class RemovePersonCommand : ICommand
     {
-        private readonly IPersonManagementService _personManagementService;
+        private readonly IPersonRepository _personRespotiry;
         private PersonDto _personDto;
 
-        public RemovePersonCommand(IPersonManagementService personManagementService, PersonDto personDto)
+        public RemovePersonCommand(PersonDto personDto, IPersonRepository personRespotiry)
         {
-            _personManagementService = personManagementService;
             _personDto = personDto;
+            _personRespotiry = personRespotiry;
         }
 
         public void Execute()

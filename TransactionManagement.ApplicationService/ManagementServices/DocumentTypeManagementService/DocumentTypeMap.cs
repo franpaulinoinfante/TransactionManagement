@@ -40,5 +40,22 @@ namespace TransactionManagement.ApplicationService.ManagementServices.DocumentTy
 
             return documentTypeDtos;
         }
+
+        internal IEnumerable<DocumentTypeEntity> FromDocumentTypeDtoToDocumentTypeEntities(IEnumerable<DocumentTypeDto> documentTypeDtos)
+        {
+            List<DocumentTypeEntity> documentTypeEntities = new List<DocumentTypeEntity>();
+
+            foreach (var documentTypeDto in documentTypeDtos)
+            {
+                documentTypeEntities.Add(new DocumentTypeEntity
+                (
+                    documentTypeDto.Id,
+                    documentTypeDto.DocumentType,
+                    documentTypeDto.Description
+                ));
+            }
+
+            return documentTypeEntities;
+        }
     }
 }

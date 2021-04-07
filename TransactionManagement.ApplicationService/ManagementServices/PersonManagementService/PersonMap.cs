@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using TransactionManagement.ApplicationService.ManagementServices.PersonManagementService.Icumbent;
+﻿using System;
+using System.Collections.Generic;
 using TransactionManagement.Core.Entities.PersonAggregate;
 
 namespace TransactionManagement.ApplicationService.ManagementServices.PersonManagementService
@@ -34,6 +34,22 @@ namespace TransactionManagement.ApplicationService.ManagementServices.PersonMana
             return new PersonEntity(dto.Id, dto.FirstName, dto.LastName, dto.Gender, dto.Phone, dto.City, dto.Address, dto.DocumentTypeId, dto.DocumentCode);
         }
 
+        internal PersonDto FromPersonEntityToPersonDto(PersonEntity person)
+        {
+            return new PersonDto
+            {
+                Id = person.Id,
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                Gender = person.Gender,
+                Phone = person.Phone,
+                City = person.City,
+                Address = person.Address,
+                DocumentTypeId = person.DocumentTypeId,
+                DocumentCode = person.DocumentCode
+            };
+        }
+
         //internal IEnumerable<PersonDto> FromPersonEntityToPersonDto(IEnumerable<PersonEntity> personEntities)
         //{
         //    List<PersonDto> personDtos = new List<PersonDto>();
@@ -57,6 +73,6 @@ namespace TransactionManagement.ApplicationService.ManagementServices.PersonMana
         //    return personDtos;
         //}
 
-       
+
     }
 }

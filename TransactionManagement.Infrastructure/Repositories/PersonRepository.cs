@@ -62,41 +62,45 @@ namespace TransactionManagement.Infrastructure.Repositories
             foreach (DataRow row in tabletResults.Rows)
             {
                 people.Add(new PersonEntity(
-                    Convert.ToInt32(row["Id"].ToString()),                                                  // Requiered field
-                    row["FirstName"].ToString(),                                                            // Requiered field
-                    row["LastName"].ToString(),                                                             // Requiered field
-                    row["Gender"].ToString(),                                                               // Requiered field
-                    row["Phone"]?.ToString(),                                                               // Unrequiered field
-                    row["City"]?.ToString(),                                                                // Unrequiered field
-                    row["Address"]?.ToString(),                                                             // Unrequiered field
-                    row["DocumentTypeId"] == DBNull.Value ? -1 : Convert.ToInt32(row["DocumentTypeId"]),    // Unrequiered field
-                    row["DocumentCode"]?.ToString()                                                         // Unrequiered field
+                    Convert.ToInt32(row["Id"].ToString()),
+                    row["FirstName"].ToString(),
+                    row["LastName"].ToString(),
+                    row["Gender"].ToString(),
+                    row["Phone"]?.ToString(),
+                    row["City"]?.ToString(),
+                    row["Address"]?.ToString(),
+                    row["DocumentTypeId"] == DBNull.Value ? 0 : Convert.ToInt32(row["DocumentTypeId"]),
+                    row["DocumentCode"]?.ToString()
                     ));
             }
 
             return people;
         }
 
-        public PersonEntity GetPersonEntityById(string query, int id)
-        {
-            DataTable tabletResult = ExecuteReader(query, CommandType.Text);
-
-            return new PersonEntity(
-                Convert.ToInt32(tabletResult.Columns["Id"]),
-                tabletResult.Columns["FirstName"].ToString(),
-                tabletResult.Columns["LastName"].ToString(),
-                tabletResult.Columns["Gender"].ToString(),
-                tabletResult.Columns["Phone"].ToString(),
-                tabletResult.Columns["City"].ToString(),
-                tabletResult.Columns["Address"].ToString(),
-                Convert.ToInt32(tabletResult.Columns["DocumentTypeId"]),
-                tabletResult.Columns["DocumentCode"].ToString()
-                );
-        }
-
         public PersonEntity GetEntityById(int id, string query)
         {
-            throw new NotImplementedException();
+            _parameters = new List<SQLiteParameter>{
+                new SQLiteParameter("@Id",id)
+            };
+
+            DataTable tableResult = ExecuteReader(query, CommandType.Text);
+
+            if (tableResult.Rows.Count == 0)
+            {
+                throw new Exception("Esta persona no esta registrada en el sistema");
+            }
+
+            return new PersonEntity(
+                Convert.ToInt32(tableResult.Columns["Id"]),
+                tableResult.Columns["FirstName"].ToString(),
+                tableResult.Columns["LastName"].ToString(),
+                tableResult.Columns["Gender"].ToString(),
+                tableResult.Columns["Phone"].ToString(),
+                tableResult.Columns["City"].ToString(),
+                tableResult.Columns["Address"].ToString(),
+                Convert.ToInt32(tableResult.Columns["DocumentTypeId"]),
+                tableResult.Columns["DocumentCode"].ToString()
+                );
         }
     }
 }

@@ -1,10 +1,12 @@
-﻿namespace TransactionManagement.Core.Entities
+﻿using System;
+
+namespace TransactionManagement.Core.Entities
 {
     public class DocumentTypeEntity : BaseEntity<int>
     {
         public DocumentTypeEntity(int id, string documentType, string description) : base(id)
         {
-            DocumentType = documentType; //!string.IsNullOrWhiteSpace(documentType) ? documentType :                 throw new System.ArgumentNullException(nameof(documentType), "Debe de ingressar un tipo de Documento");
+            DocumentType = !string.IsNullOrWhiteSpace(documentType) ? documentType : throw new ArgumentNullException(nameof(documentType), "Debe de ingressar un tipo de Documento");
             Description = description;
         }
 
@@ -16,7 +18,7 @@
         {
             if (string.IsNullOrWhiteSpace(documentType))
             {
-                throw new System.ArgumentNullException($"El tipo de documento - { nameof(documentType) } no puede ser un espacio en blanco!");
+                throw new ArgumentNullException(nameof(documentType), "Debe de ingressar un tipo de Documento");
             }
 
             DocumentType = documentType;

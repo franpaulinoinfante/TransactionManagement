@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TransactionManagement.ApplicationService.Enums;
 using TransactionManagement.Core.Entities;
+using TransactionManagement.Core.Exceptions;
 using TransactionManagement.Core.Interfaces;
 using TransactionManagement.Core.Queries;
 
@@ -15,7 +16,6 @@ namespace TransactionManagement.ApplicationService.ManagementServices.DocumentTy
         public DocumentTypeManagementService(IDocumentTypeRepository documentTypeRepository)
         {
             _documentTypeRepository = documentTypeRepository;
-
             _map = new DocumentTypeMap();
         }
 
@@ -86,28 +86,6 @@ namespace TransactionManagement.ApplicationService.ManagementServices.DocumentTy
             return newId;
         }
 
-        public DocumentTypeDto GetDocumentTypeById(DocumentTypeDto documentTypeDto)
-        {
-            string query = DocumentTypeQueries.GetDocumentTypeByDocumentType;
-
-            DocumentTypeEntity documentTypeEntity = _documentTypeRepository.GetEntityById(documentTypeDto.Id, query); 
-
-            return _map.FromDocumentTypeEntityToDocumentTypeDto(documentTypeEntity);
-        }
-
-        public IEnumerable<DocumentTypeDto> GetDocumentTypeDtos()
-        {
-            string query = DocumentTypeQueries.GetDocumentTypes;
-            IEnumerable<DocumentTypeEntity> documentTypeEntities = _documentTypeRepository.GetEntities(query);
-
-            if (documentTypeEntities == null)
-            {
-                throw new NullReferenceException();
-            }
-
-            return _map.FromDocumentTypeEntitiesToDocumentTypeDtos(documentTypeEntities);
-        }
-
         public bool RemoveDocumentType(DocumentTypeDto documentTypeDto)
         {
             string query = DocumentTypeQueries.GetDocumentTypeByDocumentType;
@@ -145,6 +123,32 @@ namespace TransactionManagement.ApplicationService.ManagementServices.DocumentTy
             }
 
             return success;
+        }
+
+        public DocumentTypeDto GetDocumentTypeById(int id)
+        {
+            string query = DocumentTypeQueries.GetDocumentTypeByDocumentType;
+            DocumentTypeEntity documentTypeEntity = _documentTypeRepository.GetEntityById(id, query);
+
+            if (documentTypeEntity == null)
+            {
+                throw new NotFoundDocumentTypeException(new KeyNotFoundException(nameof(id)));
+            }
+
+            return _map.FromDocumentTypeEntityToDocumentTypeDto(documentTypeEntity);
+        }
+
+        public IEnumerable<DocumentTypeDto> GetDocumentTypeDtos()
+        {
+            string query = DocumentTypeQueries.GetDocumentTypes;
+            IEnumerable<DocumentTypeEntity> documentTypeEntities = _documentTypeRepository.GetEntities(query);
+
+            if (documentTypeEntities == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            return _map.FromDocumentTypeEntitiesToDocumentTypeDtos(documentTypeEntities);
         }
     }
 }

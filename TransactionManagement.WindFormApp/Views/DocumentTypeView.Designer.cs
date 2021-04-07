@@ -42,6 +42,9 @@ namespace TransactionManagement.WinFormApp.Views
             this.btnNew = new System.Windows.Forms.Button();
             this.txtFindByDocumentType = new System.Windows.Forms.TextBox();
             this.btnFindBy = new System.Windows.Forms.Button();
+            this.dgcId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcDocumentType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgcDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDocumentType)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +60,10 @@ namespace TransactionManagement.WinFormApp.Views
             this.dgvDocumentType.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDocumentType.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedHeaders;
             this.dgvDocumentType.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDocumentType.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgcId,
+            this.dgcDocumentType,
+            this.dgcDescription});
             this.dgvDocumentType.Location = new System.Drawing.Point(12, 45);
             this.dgvDocumentType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgvDocumentType.Name = "dgvDocumentType";
@@ -189,6 +196,25 @@ namespace TransactionManagement.WinFormApp.Views
             this.btnFindBy.UseVisualStyleBackColor = true;
             this.btnFindBy.Click += new System.EventHandler(this.btnFindBy_Click);
             // 
+            // dgcId
+            // 
+            this.dgcId.HeaderText = "Id";
+            this.dgcId.Name = "dgcId";
+            this.dgcId.ReadOnly = true;
+            this.dgcId.Visible = false;
+            // 
+            // dgcDocumentType
+            // 
+            this.dgcDocumentType.HeaderText = "Tipo de Documento";
+            this.dgcDocumentType.Name = "dgcDocumentType";
+            this.dgcDocumentType.ReadOnly = true;
+            // 
+            // dgcDescription
+            // 
+            this.dgcDescription.HeaderText = "Descripcción";
+            this.dgcDescription.Name = "dgcDescription";
+            this.dgcDescription.ReadOnly = true;
+            // 
             // DocumentTypeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -229,5 +255,8 @@ namespace TransactionManagement.WinFormApp.Views
         internal System.Windows.Forms.Button btnNew;
         internal System.Windows.Forms.TextBox txtFindByDocumentType;
         internal System.Windows.Forms.Button btnFindBy;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcDocumentType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgcDescription;
     }
 }

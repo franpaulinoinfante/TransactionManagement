@@ -70,8 +70,8 @@
     <Compile Include="Data\ConnectionToSQLite.cs" />
     <Compile Include="DependencyInjection\DI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\BankRepository.cs" />
     <Compile Include="Repositories\DocumentTypeRepository.cs" />
-    <Compile Include="Repositories\IncumbentRepository.cs" />
     <Compile Include="Repositories\MasterRepository.cs" />
     <Compile Include="Repositories\PersonRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

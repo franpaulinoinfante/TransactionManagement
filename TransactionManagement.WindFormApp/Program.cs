@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows.Forms;
-using Microsoft.Extensions.DependencyInjection;
+using TransactionManagement.ApplicationService.Application.ManagementServices;
 using TransactionManagement.ApplicationService.ManagementServices.DocumentTypeManagementService;
-using TransactionManagement.ApplicationService.ManagementServices.PersonManagementService;
-using TransactionManagement.ApplicationService.ManagementServices.PersonManagementService.Icumbent;
+using TransactionManagement.ApplicationService.ManagementServices.UserManagementServices;
 using TransactionManagement.Infrastructure.DependencyInjection;
 using TransactionManagement.WinFormApp.Views;
 
@@ -24,8 +24,9 @@ namespace TransactionManagement.WinFormApp
 
             services
                 .AddInfrastructure()
-                .AddTransient<IIncumbentManagementService, IncumbentManagementService>()
-                .AddTransient<IDocumentTypeManagementService,DocumentTypeManagementService>()
+                .AddTransient<IDocumentTypeManagementService, DocumentTypeManagementService>()
+                .AddSingleton<IUserManagementService, UserManagementServices>()
+                .AddSingleton<IBankManagementService,BankManagementService>()
                 .AddTransient<DashBoard>();
 
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())

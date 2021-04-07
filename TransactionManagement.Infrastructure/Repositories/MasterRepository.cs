@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TransactionManagement.Infrastructure.Repositories
 {
@@ -28,16 +25,16 @@ namespace TransactionManagement.Infrastructure.Repositories
                 {
                     connection.Open();
                     sqlCommand.Connection = connection;
-                    
-                    var number = sqlCommand.ExecuteNonQuery();
+
+                    int rowsaffected = sqlCommand.ExecuteNonQuery();
 
                     Dispose();
 
-                    if (number > 0)
+                    if (rowsaffected == -1)
                     {
-                        return true;
+                        return false;
                     }
-                    return false;
+                    return true;
                 }
             }
         }
@@ -63,11 +60,7 @@ namespace TransactionManagement.Infrastructure.Repositories
 
                     Dispose();
 
-                    if (newId > 0)
-                    {
-                        return newId;
-                    }
-                    throw new SQLiteException();
+                    return newId;
                 }
             }
         }
@@ -81,7 +74,7 @@ namespace TransactionManagement.Infrastructure.Repositories
 
                 if (_parameters != null)
                 {
-                    foreach (var parameter in _parameters)
+                    foreach (SQLiteParameter parameter in _parameters)
                     {
                         sqlCommand.Parameters.Add(parameter);
                     }

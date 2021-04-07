@@ -4,8 +4,9 @@ namespace TransactionManagement.Core.Entities.PersonAggregate
 {
     public class PersonEntity : BaseEntity<int>
     {
-        public PersonEntity(int id) : base(id)
+        public PersonEntity(int id ): base (id)
         {
+
         }
 
         public PersonEntity(int id, string firstName, string lastName, string gender, string phone,
@@ -25,6 +26,10 @@ namespace TransactionManagement.Core.Entities.PersonAggregate
         public string FirstName { get; protected set; }
 
         public string LastName { get; protected set; }
+
+        public string UserName { get; set; }
+
+        public string Password { get; set; }
 
         public string Gender { get; protected set; }
 
@@ -50,6 +55,17 @@ namespace TransactionManagement.Core.Entities.PersonAggregate
             DocumentTypeId = documentTypeId;
             DocumentCode = documentCode;
 
+        }
+
+        public void CreateUser(string userName,string password)
+        {
+            if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
+            {
+                throw new ArgumentNullException("No puede tener espacio en blanco");
+            }
+
+            UserName = userName;
+            Password = password;
         }
     }
 }

@@ -27,15 +27,15 @@ namespace TransactionManagement.Infrastructure.Repositories
                 new SQLiteParameter("@Id", id)
             };
 
-            var rowResult = ExecuteReader(query, CommandType.Text);
+            DataTable tableResult = ExecuteReader(query, CommandType.Text);
+            
+            if (tableResult.Rows.Count > 0)
+            {
+                DataRow row = tableResult.Rows[0];
+                return new DocumentTypeEntity(Convert.ToInt32(row["Id"]), row["DocumentType"].ToString(), row["Description"].ToString());
+            }
 
-            DataRow row = rowResult != null ? rowResult.Rows[0] : 
-                throw new Exception(/*"No se encontro ningun tipo de documento con este nombre"*/);
-
-            DocumentTypeEntity documentEntity = new DocumentTypeEntity(
-                Convert.ToInt32(row["Id"]), row["DocumentType"].ToString(), row["Description"].ToString());
-
-            return documentEntity;
+            return null;
         }
 
         public IEnumerable<DocumentTypeEntity> GetEntities(string query)

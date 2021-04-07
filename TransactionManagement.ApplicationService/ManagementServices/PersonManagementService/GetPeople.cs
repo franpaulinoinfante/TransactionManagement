@@ -17,7 +17,7 @@ namespace TransactionManagement.ApplicationService.ManagementServices.PersonMana
 
         public void Execute()
         {
-            _personManagementService.GetPersonEntities();
+            _personManagementService.GetPersonDtos();
         }
     }
 }

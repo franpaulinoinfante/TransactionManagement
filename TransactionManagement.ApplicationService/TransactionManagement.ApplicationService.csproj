@@ -41,6 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapters\DTOs\BankAccountDto.cs" />
+    <Compile Include="Adapters\DTOs\BankDto.cs" />
+    <Compile Include="Adapters\Mappers\BankMap.cs" />
+    <Compile Include="Application\ManagementServices\BankManagementService.cs" />
+    <Compile Include="Application\ManagementServices\IBankManagementService.cs" />
     <Compile Include="Enums\EntityState.cs" />
     <Compile Include="ManagementServices\Command\ICommand.cs" />
     <Compile Include="ManagementServices\Command\Invoke.cs" />
@@ -52,10 +57,6 @@
     <Compile Include="ManagementServices\PersonManagementService\CreatePersonCommand.cs" />
     <Compile Include="ManagementServices\PersonManagementService\GetPeople.cs" />
     <Compile Include="ManagementServices\PersonManagementService\ICommand.cs" />
-    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IIncumbentManagementService.cs" />
-    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IncumbentDto.cs" />
-    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IncumbentManagementService.cs" />
-    <Compile Include="ManagementServices\PersonManagementService\Icumbent\IncumbentMap.cs" />
     <Compile Include="ManagementServices\PersonManagementService\Invoke.cs" />
     <Compile Include="ManagementServices\PersonManagementService\IPersonManagementService.cs" />
     <Compile Include="ManagementServices\PersonManagementService\PersonDto.cs" />
@@ -63,12 +64,13 @@
     <Compile Include="ManagementServices\PersonManagementService\PersonMap.cs" />
     <Compile Include="ManagementServices\PersonManagementService\RemovePersonCommand.cs" />
     <Compile Include="ManagementServices\PersonManagementService\UpdatePersonCommand.cs" />
-    <Compile Include="ManagementServices\PersonManagementService\User\IUserManagementService.cs" />
-    <Compile Include="ManagementServices\PersonManagementService\User\UserManagementService.cs" />
+    <Compile Include="ManagementServices\UserManagementServices\IUserManagementService.cs" />
+    <Compile Include="ManagementServices\UserManagementServices\UserDto.cs" />
+    <Compile Include="ManagementServices\UserManagementServices\UserManagementServices.cs" />
+    <Compile Include="ManagementServices\UserManagementServices\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Adapters\" />
     <Folder Include="ManagementServices\BankServiceManagement\" />
     <Folder Include="ManagementServices\PersonManagementService\Command\" />
     <Folder Include="ManagementServices\PersonManagementService\FactoryMethod\" />

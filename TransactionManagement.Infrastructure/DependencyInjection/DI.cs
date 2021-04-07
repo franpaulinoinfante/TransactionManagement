@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TransactionManagement.Core.Entities.PersonAggregate;
 using TransactionManagement.Core.Interfaces;
+using TransactionManagement.Core.Interfaces.Repositories;
+using TransactionManagement.Core.Interfaces.Services;
+using TransactionManagement.Core.Services;
 using TransactionManagement.Infrastructure.Repositories;
 
 namespace TransactionManagement.Infrastructure.DependencyInjection
@@ -11,8 +14,11 @@ namespace TransactionManagement.Infrastructure.DependencyInjection
         {
             services
                 .AddScoped<IPersonRepository, PersonRepository>()
-                .AddScoped<IIncumbentRepository, IncumbentRepository>()
-                .AddScoped<IDocumentTypeRepository,DocumentTypeRepository>();
+                .AddScoped<IDocumentTypeRepository, DocumentTypeRepository>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<IBankRepository, BankRepository>()
+                .AddScoped<IBankService,BankService>();
 
             return services;
         }

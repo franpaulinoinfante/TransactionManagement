@@ -12,10 +12,10 @@ namespace TransactionManagement.ApplicationService.ManagementServices.PersonMana
 
         bool UpdatePerson(PersonEntity entity);
 
-        IEnumerable<PersonEntity> GetPersonEntities();
+        IEnumerable<PersonDto> GetPersonDtos();
 
         IEnumerable<DocumentTypeDto> GetDocumentTypeDtos();
 
-        PersonEntity GetPersonById(int id);
+        PersonDto GetPersonById(int id);
     }
 }

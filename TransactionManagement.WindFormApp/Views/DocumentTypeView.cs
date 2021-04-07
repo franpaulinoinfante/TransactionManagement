@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using TransactionManagement.ApplicationService.ManagementServices.DocumentTypeManagementService;
 using TransactionManagement.WindFormApp.ViewHelpers;
-using TransactionManagement.WinFormApp.Controllers;
+using TransactionManagement.WindFormApp.Views.DocumentTypeViews;
 
 namespace TransactionManagement.WinFormApp.Views
 {
@@ -98,22 +99,14 @@ namespace TransactionManagement.WinFormApp.Views
 
         private void btnFindBy_Click(object sender, EventArgs e)
         {
-            try
-            {
-                DocumentTypeDto documentTypeDto = _documentTypeManagementService.GetDocumentTypeById(_dto);
-
-                MessageBox.Show($"Id - { documentTypeDto.Id }\nTipo de Documento - { documentTypeDto.DocumentType }\nDescripción - { documentTypeDto.Description }");
-
-                txtFindByDocumentType.Clear();
-            }
-            catch (IndexOutOfRangeException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            FindDocumentByDocument();
         }
 
         private void dgvDocumentType_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            DocumentTypeViewHandle myHandle = new WindFormApp.Views.DocumentTypeViews.DocumentTypeViewHandle();
+            myHandle.ShowDialog();
+
             if (dgvDocumentType.Rows.Count > 0)
             {
                 _id = Convert.ToInt32(dgvDocumentType.CurrentRow.Cells["Id"].Value);
@@ -134,13 +127,35 @@ namespace TransactionManagement.WinFormApp.Views
 
         private void GetDocumentTypes()
         {
+            dgvDocumentType.Rows.Clear();
+
             try
             {
-                dgvDocumentType.DataSource = _documentTypeManagementService.GetDocumentTypeDtos();
+                IEnumerable<DocumentTypeDto> documentTypes = _documentTypeManagementService.GetDocumentTypeDtos();
+                foreach (DocumentTypeDto documentType in documentTypes)
+                {
+                    dgvDocumentType.Rows.Add(documentType.Id, documentType.DocumentType, documentType.Description);
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void FindDocumentByDocument()
+        {
+            try
+            {
+                DocumentTypeDto documentTypeDto = _documentTypeManagementService.GetDocumentTypeById(int.Parse(txtFindByDocumentType.Text));
+
+                MessageBox.Show($"Id - { documentTypeDto.Id }\nTipo de Documento - { documentTypeDto.DocumentType }\nDescripción - { documentTypeDto.Description }");
+
+                txtFindByDocumentType.Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ ex.Message }");
             }
         }
 
@@ -169,6 +184,7 @@ namespace TransactionManagement.WinFormApp.Views
             txtFindByDocumentType.ReadOnly = false;
             btnNew.Focus();
         }
+
         private void RefreshContronllers()
         {
             ActionInControls.RefreshControls(panel1);

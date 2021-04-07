@@ -4,7 +4,7 @@ namespace TransactionManagement.Core.Services
 {
     public class TransferService : Interfaces.ITransferService
     {
-        public void PerformTransferInTransitBetweenAccount(TransactionStatus transactionStatus, BankAccount originAccount, BankAccount destinationAccount, decimal amount)
+        public void PerformTransferInTransitBetweenAccount(TransactionStatus transactionStatus, BankAccountEntity originAccount, BankAccountEntity destinationAccount, decimal amount)
         {
             if (originAccount == null || destinationAccount == null)
             {
@@ -16,7 +16,7 @@ namespace TransactionManagement.Core.Services
             destinationAccount.CreditMoney(amount);
         }
 
-        public void PerformTransferInTransitForPayee(TransactionStatus transactionStatus, BankAccount originAccount, decimal amount)
+        public void PerformTransferInTransitForPayee(TransactionStatus transactionStatus, BankAccountEntity originAccount, decimal amount)
         {
             if (originAccount == null || transactionStatus == null)
             {
@@ -26,7 +26,7 @@ namespace TransactionManagement.Core.Services
             originAccount.ChargeMoneyInTransit(transactionStatus, amount);
         }
 
-        public void PerformTransferComplete(BankAccount originAccount, Transaction transaction)
+        public void PerformTransferComplete(BankAccountEntity originAccount, Transaction transaction)
         {
             if (originAccount == null || transaction == null)
             {
@@ -38,7 +38,7 @@ namespace TransactionManagement.Core.Services
 
         }
 
-        public void PerfomTransferCreditMoney(BankAccount originAccount, decimal amount)
+        public void PerfomTransferCreditMoney(BankAccountEntity originAccount, decimal amount)
         {
             if (originAccount == null)
             {

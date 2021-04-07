@@ -4,14 +4,14 @@ namespace TransactionManagement.Core.Interfaces
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        int Create(TEntity entity, string query);
+        int Create(TEntity entity, string script);
 
-        bool Remove(int id, string query);
+        bool Remove(int id, string script);
 
-        bool Update(TEntity entity, string query);
+        bool Update(TEntity entity, string script);
 
-        IEnumerable<TEntity> GetEntities(string query);
+        IEnumerable<TEntity> GetEntities(string script);
 
-        TEntity GetEntityById(int id, string query);
+        TEntity GetEntityById(int id, string script);
     }
 }

@@ -30,13 +30,12 @@ namespace TransactionManagement.Core.Entities.BankAggregate
         public string Description { get; private set; }
 
         public int UserId { get; private set; }
-        public UserEntity User { get; private set; }
 
         public int OriginalBankAccountId { get; private set; }
-        public BankAccount OriginalBankAccount { get; private set; }
+        public BankAccountEntity OriginalBankAccount { get; private set; }
 
         public int? FinalBankAccountId { get; private set; }
-        public BankAccount FnalBankAccount { get; private set; }
+        public BankAccountEntity FnalBankAccount { get; private set; }
 
         public int TransactionStatusId { get; private set; }
         public TransactionStatus TransactionStatus { get; private set; }

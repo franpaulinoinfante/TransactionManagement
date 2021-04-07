@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TransactionManagement.ApplicationService.ManagementServices.DocumentTypeManagementService;
-using TransactionManagement.Core.Entities;
 using TransactionManagement.Core.Entities.PersonAggregate;
 using TransactionManagement.Core.Interfaces;
 using TransactionManagement.Core.Queries;
-using TransactionManagement.Infrastructure.Repositories;
 
 namespace TransactionManagement.ApplicationService.ManagementServices.PersonManagementService
 {
@@ -21,13 +20,17 @@ namespace TransactionManagement.ApplicationService.ManagementServices.PersonMana
             _documentTypeManagementService = documentTypeManagementService;
         }
 
-        public IEnumerable<PersonEntity> GetPersonEntities()
+        public IEnumerable<PersonDto> GetPersonDtos()
         {
             string query = PersonQueries.GetPeople;
+            var personEntity = _personRepository.GetEntities(query);
 
-            return _personRepository.GetEntities(query);
+            return _map.FromPersonEntityToPersonDto(personEntity);            
+        }
 
-            //return peopleEntities;
+        public IEnumerable<PersonEntity> GetPersonEntities()
+        {
+            return _personRepository.GetEntities(PersonQueries.GetPeople);
         }
 
         public IEnumerable<DocumentTypeDto> GetDocumentTypeDtos()
@@ -38,39 +41,57 @@ namespace TransactionManagement.ApplicationService.ManagementServices.PersonMana
         public int CreatePerson(PersonEntity entity)
         {
             string query = PersonQueries.CreatePerson;
+            int personEntityId = _personRepository.Create(entity, query);
 
-            return _personRepository.Create(entity, query);
+            if (personEntityId == 0)
+            {
+                throw new Exception("No se pudo crear esta persona");
+            }
+
+            return personEntityId;
         }
 
         public bool RemovePerson(int id)
         {
-            string query = PersonQueries.RemovePerson;
+            string query = PersonQueries.GetPersonById;
+            PersonEntity person = _personRepository.GetEntityById(id, query);
 
-            return _personRepository.Remove(id, query);
+            if (person != null)
+            {
+                query = PersonQueries.RemovePerson;
+                return _personRepository.Remove(id, query);
+            }
+
+            return false;
         }
 
         public bool UpdatePerson(PersonEntity entity)
         {
-            PersonEntity personEntity = GetPersonById(entity.Id);
+            string query = PersonQueries.GetPersonById;
+            PersonEntity personEntity = _personRepository.GetEntityById(entity.Id, query);
 
-            if (personEntity == null)
+            if (personEntity != null)
             {
-                string personNotFound = "Person Not Found";
-                return false;
+                personEntity.UpdatePerson(entity.FirstName, entity.LastName, entity.Gender, entity.Phone, entity.City, entity.Address, entity.DocumentTypeId, entity.DocumentCode);
+
+                query = PersonQueries.UpdatePerson;
+                return _personRepository.Update(personEntity, query);
             }
 
-            personEntity.UpdatePerson(entity.FirstName, entity.LastName, entity.Gender, entity.Phone, entity.City, entity.Address, entity.DocumentTypeId, entity.DocumentCode);
-
-            string query = PersonQueries.UpdatePerson;
-
-            return _personRepository.Update(entity, query);
+            return false;
         }
 
-        public PersonEntity GetPersonById(int id)
+        public PersonDto GetPersonById(int id)
         {
             string query = PersonQueries.GetPersonById;
+            PersonEntity person = _personRepository.GetEntityById(id, query);
 
-            return _personRepository.GetPersonEntityById(query,id);
+            if (person == null)
+            {
+                throw new Exception($"No se encontro esta persona");
+            }
+
+            return _map.FromPersonEntityToPersonDto(person);
         }
     }
 }

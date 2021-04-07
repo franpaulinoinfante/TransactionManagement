@@ -39,7 +39,7 @@ namespace TransactionManagement.WinFormApp.Controllers
         {
             AddColumnsToGridView();
 
-            var documentType = _documentTypeManagementService.GetDocumentTypeById(new DocumentTypeDto());
+            var documentType = _documentTypeManagementService.GetDocumentTypeById(0);
 
             _documentTypeView.dgvDocumentType.Rows.Add(documentType.Id, documentType.DocumentType, documentType.Description);
         }
